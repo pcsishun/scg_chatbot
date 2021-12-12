@@ -899,7 +899,7 @@ app.get('/jobs/mysleeplezz34', async (req, res) => {
 /// ***************  ***************//
 // test push random msg cognitive // 
 /// ***************  ***************//
-
+// https://testdeploy-330007.as.r.appspot.com/test/inter/:menu/:userid/:pattern // 
 // U51fca2ec938022c69e9b151cef5edf35  Earth
 // Ub4ce4ff562a58ef44876ae6aa1ca6a00  peak
 // U4551e58d8b384c3b5129281927ee970a  proud
