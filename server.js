@@ -63,24 +63,8 @@ app.post('/callback', async (request, response) => {
   let msgType = request.body.events[0].message.type;
   let msgText = request.body.events[0].message.text;
 
-  console.log('jsonfile ---> '+ JSON.stringify(jsonfile));
-
-  // console.log(`msgType--> ${msgType}`);
-  // console.log(`msgText--> ${msgText}`);
-
-  // try{
-  //   const arraySplitWord = msgText.split('-');
-  //   const lengthOfArrary = arraySplitWord.length;  
-  // }catch(err){
-  //   console.log(err.message + 'this massage is not greeting massage so system must pass this error.')
-  // }
-
-
-
   let token = request.body.events[0].replyToken;
-  // console.log(`replay token--> ${token}`);
-  // console.log(`replay msgType--> ${msgType}`);
-  // console.log(`replay msgText--> ${msgText}`);
+ 
   if(msgType === "text")
   {
 
@@ -92,78 +76,6 @@ app.post('/callback', async (request, response) => {
       const echo = { type: 'flex', altText: 'This is a Flex Message', contents: msgReply };
       return client.replyMessage(token, echo);
     }
-    // else if(msgText === "โครงการนี้เหมาะกับใคร?"){
-    //   const textgen = "โครงการนี้เหมาะกับ ผู้ที่มีปัญหาเรื่องการนอน จนรู้สึกว่ากระทบกับการใช้ชีวิตประจำวันในช่วงนี้ โดยคาดหวังวิธีการที่ใช้การวิเคราะห์ข้อมูลเพื่อการปรับพฤติกรรมเป็นหลัก ไม่ใช่การทานยา"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ประโยชน์ที่คาดหวังจากการเข้าร่วม"){
-    //   const textgen = "เนื่องจากโครงการนี้ มุ่งเน้นการใช้เทคโนโลยีและข้อมูลเพื่อออกแบบโปรแกรม ให้สอดคล้องกับการปรับพฤติกรรมเฉพาะเจาะจงต่อบริบทของผู้ใช้งานแต่ละคนเป็นหลัก และไม่มีการใช้ยาร่วมในโปรแกรม"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ผลิตภัณฑ์ที่ออกตลาด?"){
-    //   const textgen = "เป็นผลิตภัณฑ์ในขั้นตอนการพัฒนา ซึ่งต้องอาศัยความร่วมมือจากผู้ใช้งาน เพื่อร่วมออกแบบวิธีการปรับพฤติกรรมให้เหมาะสมกับผู้ใช้งานแต่ละท่านร่วมกับการวิเคราะห์ข้อมูลรายบุคคล"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "สิ่งที่ผู้เข้าร่วมโครงการจะได้รับ"){
-    //   const textgen = "1.กล่อง Sleepy Box ที่ประกอบด้วย Mi Band 6 เพื่อใช้เก็บข้อมูลขณะใช้ชีวิตประจำวัน ทั้งกลางวันและกลางคืน   2.โปรแกรมเพื่อช่วยปรับพฤติกรรมให้การนอนดีขึ้น ผ่านช่องทาง Line Chat"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ดูแลข้อมูลยังไง"){
-    //   const textgen = "โดยจะมีการลบข้อมูลที่มีการระบุตัวตนทั้งหมด ภายในวันที่ 28 กุมภาพันธ์ 2565 และคงเหลือไว้เฉพาะข้อมูลที่เป็นนิรนามเพื่อการวิเคราะห์ในภายหลัง หมายเหตุทำการเข้ารหัส ชื่อ ที่ อยู่ และ ผู้ที่สามารถเข้าถึงข้อมูลมีเพียงแค่ผู้ดูแลโครงการเท่านั้น"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ขั้นตอนและกำหนดการ"){
-    //   const textgen = "15-26 พย 64: เก็บข้อมูลอ้างอิง เพื่อสะท้อนกิจวัตรและคุณภาพการนอนปัจจุบัน ก่อนเริ่มโปรแกรมปรับพฤติกรรม || 18 พย 64: เวิร์คชอปในรูปแบบ online/offline เพื่อการคิดโซลูชั่นร่วมกัน (นัดหมายแยกสำหรับผู้ใช้งานรายที่ไม่สะดวก) || 3-15 มค 65: ผู้ใช้งานเริ่มเข้าโปรแกรมปรับพฤติกรรมเพื่อปรับปรุงการนอนที่ดีขึ้น || 31 มค 65: สรุปผลเพื่อปิดโครงการ และส่งกล่องSleepy Box กลับในรูปแบบชำระเงินปลายทาง"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ทีมพัฒนาน่าเชื่อถือมัย?"){
-    //   const textgen = "ทีมพัฒนาประกอบด้วย: นักบำบัดความคิดและพฤติกรรม, นักออกแบบพฤติกรรม, นักออกแบบประสบการณ์, วิศวกรข้อมูล, นักวิเคราะห์ข้อมูล"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ประกาศผลผู้มีสิทธิ์เข้าร่วมเมื่อไร?"){
-    //   const textgen = "ภายในวันศุกร์ ที่ 12 พ.ย. 64 "
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ต้องทำอะไรบ้าง?"){
-    //   const textgen = "ใส่Mi Band 6 ในกิจวัตรในช่วงกลางวันและกลางคืนเพื่อเก็บข้อมูลที่จะนำไปวิเคราะห์และออกแบบโปรแกรมการปรับพฤติกรรมรายบุคคล ช่วงวันที่ 15 พย 64 ถึง 31 มค 65 เเละเข้าร่วมเวิร์ชอปเพื่อระดมสมองสร้างโซลูชันเพื่อการปรับพฤติกรรมในวันที่ 18 ธค 64 (สมารถเลือกได้ว่าเป็นแบบออนไลน์ หรือ ออฟไลน์)"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ยกเลิกการเข้าร่วมโครงการ?"){
-    //   const textgen = "สามารถ แต่อยากขอความร่วมมือผู้ร่วมโครงการอยู่ในโครงการตั้งแต่ต้นจนจบ เพื่อการปรับปรุงคุณภาพการนอนให้มีประสิทธิภาพ ตามที่ได้ตั้งใจร่วมกันตั้งแต่เริ่มโครงการ"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ข้อมูลอะไรบ้าง?"){
-    //   const textgen = "ข้อมูลส่วนตัวเพื่อระบุตัวตน เช่น ชื่อ นามสกุล ที่อยู่เพื่อการรับพัสดุ เเละข้อมูลสุขภาพรายบุคคลที่เก็บผ่าน Mi Band 6 และแอพพลิเคชั่นดังนี้ Health app, GoogleFit, Mifit"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ติดต่อสอบถาม"){
-    //   const textgen = "วิศวิน 0952512060, เวทินี 0994942426"
-    //   const replyMsg = {type: 'text', text: textgen};
-    //   return client.replyMessage(token, replyMsg);
-    // }
-    // else if(msgText === "ดำเนินการถัดไป"){
-    //   // console.log("In active collect data;");
-    //   const msgReply = collectPersonalData();
-    //   const echo = { type: 'flex', altText: 'This is a Flex Message', contents: msgReply };
-    //   return client.replyMessage(token, echo);
-    // }
-    // else if (msgText === "เริ่มบันทึกข้อมูล")
-    // {
-    //   const msgSet = "กรุณากรอกข้อมูลตามรูปแบบการ กรอกข้อมูลคือ ชื่อ-นามสกุล เช่น สมยศ-สมคง";
-    //   const replyMsg = {type:'text', text: msgSet}
-    //   return client.replyMessage(token, replyMsg);
-    // }
     // for dev // 
     else if(msgText === "!debugerTester!"){
 
@@ -175,34 +87,20 @@ app.post('/callback', async (request, response) => {
       }
 
       console.log("debuger-tester")
-
-        // const msgReply = debugtext();
-        // const echo = { type: 'flex', altText: 'This is a Flex Message', contents: msgReply };
-        // console.log(echo)
-        // const echo = {type: 'text', text: "Hi developer team :)"}
-        // return client.replyMessage(token, echo);
+ 
         return client.pushMessage(userID, msgDeploy)
    
     } 
     else if (lengthOfArrary === 2)
     {
 
-      // const conn = mysql.createConnection({
-      //   host: connection,
-      //   socketPath: socketPath,
-      //   user: user,
-      //   password: pass,
-      //   database: db
-      // });
+ 
   
       if(lengthOfArrary === 2 )
       {
           const arrayWord = msgText.split('-');
           const firstName = arrayWord[0];
           const lastName = arrayWord[1];
-          // const email = arrayWord[2];
-          // const address = arrayWord[3];
-          // const tel = arrayWord[4];
           if(firstName === undefined || lastName === undefined)
           {
             // console.log("Error format insert!");
@@ -217,31 +115,6 @@ app.post('/callback', async (request, response) => {
             const msgReply = moodSurvey();
             const echo = { type: 'flex', altText: 'This is a Flex Message', contents: msgReply };
             return client.replyMessage(token, echo);   
-
-            // const sql = `INSERT INTO collect_userid_email ( uid, firstname, lastname) VALUES ('${userID}', '${firstName}', '${lastName}')`;
-            // conn.query(sql, function (err, result) {
-            //   if (err) {
-            //     // console.log(err.message);
-            //     const replyMsg = { type: 'text', text: err.message + "กรุณาตรวจสอบรูปแบบการส่งข้อมูล ชื่อ-นามสกุล"}
-            //     // conn.end();
-            //     return client.replyMessage(token, replyMsg);
-            //   }else{
-            //     // console.log('inserted');
-            //     // const replyMsg = { type: 'text', text: 'ทางทีมงานได้รับข้อมูลเรียบร้อยค่ะ'}
-            //     // return client.replyMessage(token, replyMsg);
- 
-            //     // const msgConfirm = `ทางทีมงานได้รับข้อมูลเรียบร้อยค่ะ  ขั้นตอนถัดไปกรุณาตอบเเบบสอบถามเพื่อประเมิณระดับความรุนเเรงของอาการนอนไม่หลับตามลิงก์นี้ได้เลยค่ะ shorturl.at/efotD  กรุณาโปรดติดตามผู้ที่มีสิทธิ์จะได้เข้าโครงการผ่านช่อง line นี้`;
-            //     // const replyConfirm = {type: 'text', text: msgConfirm};
-            //     // return client.replyMessage(token, replyConfirm);
-
-            //     const msgReply = moodSurvey();
-            //     const echo = { type: 'flex', altText: 'This is a Flex Message', contents: msgReply };
-            //     // conn.end();
-            //     return client.replyMessage(token, echo);
-
-        
-            //   }
-            // });
           }
       }
       else
@@ -295,7 +168,7 @@ app.post('/callback', async (request, response) => {
     }
     else if(msgText === "Muscle relax"){
       const setDate = new Date();
-      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+(setDate.getHours()+7)+":" + setDate.getMinutes()+":"+setDate.getSeconds()
 
       const kind = "card_menu_select"
       const taskKey = datastore.key([kind]);
@@ -316,7 +189,7 @@ app.post('/callback', async (request, response) => {
     }
     else if(msgText === "breathing Video"){
       const setDate = new Date();
-      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+(setDate.getHours()+7)+":" + setDate.getMinutes()+":"+setDate.getSeconds()
 
       const kind = "card_menu_select"
       const taskKey = datastore.key([kind]);
@@ -336,7 +209,7 @@ app.post('/callback', async (request, response) => {
     }
     else if(msgText === "Music Relax"){
       const setDate = new Date();
-      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+(setDate.getHours()+7)+":" + setDate.getMinutes()+":"+setDate.getSeconds()
 
       const kind = "card_menu_select"
       const taskKey = datastore.key([kind]);
@@ -369,7 +242,7 @@ app.post('/callback', async (request, response) => {
       const menuSelect = setMenuSelect[2]
       console.log("2. Intervention ===> ", menuSelect)
       const setDate = new Date();
-      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+(setDate.getHours()+7)+":" + setDate.getMinutes()+":"+setDate.getSeconds()
       console.log("isDate chatStatus ===> ", isDate)
 
       if(msgText.includes("สวัสดี mysleepless") === true)
@@ -505,7 +378,7 @@ app.post('/callback', async (request, response) => {
       if(msgText === "ฉันทำเสร็จเเล้ว!!")
       {
         const setDate = new Date();
-        const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+        const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+(setDate.getHours()+7)+":" + setDate.getMinutes()+":"+setDate.getSeconds()
 
         const kind = "card_menu_select"
         const taskKey = datastore.key([kind]);
@@ -558,7 +431,7 @@ app.post('/callback', async (request, response) => {
       // console.log("setIdCount else ===>",menuRunning)
 
       const setDate = new Date();
-      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+(setDate.getHours()+7)+":" + setDate.getMinutes()+":"+setDate.getSeconds()
       // console.log("isDate chatStatus ===> ", isDate)
 
       if(countingTask === 0)
@@ -833,7 +706,7 @@ app.get('/jobs/mysleeplezz02/3', async (req, res) => {
 
 
 app.get('/jobs/mysleeplezz03', async (req, res) => {
-  
+  res.send("OK")
 })
 
 
@@ -908,12 +781,12 @@ app.get('/jobs/mysleeplezz09/3', async (req, res) => {
 
 
 app.get('/jobs/mysleeplezz11', async (req, res) => {
-  
+  res.send("OK")
 })
 
 
 app.get('/jobs/mysleeplezz12', async (req, res) => {
-  
+  res.send("OK")
 })
 
 
@@ -941,17 +814,17 @@ app.get('/jobs/mysleeplezz14/3', async (req, res) => {
 
 
 app.get('/jobs/mysleeplezz15', async (req, res) => {
-  
+  res.send("OK")
 })
 
 
 app.get('/jobs/mysleeplezz16', async (req, res) => {
-  
+  res.send("OK")
 })
 
 
 app.get('/jobs/mysleeplezz18', async (req, res) => {
-  
+  res.send("OK")
 })
 
 
@@ -991,31 +864,31 @@ app.get('/jobs/mysleeplezz23', async (req, res) => {
 })
 
 app.get('/jobs/mysleeplezz25', async (req, res) => {
-  
+  res.send("OK")
 })
 
 app.get('/jobs/mysleeplezz26', async (req, res) => {
-  
+  res.send("OK")
 })
 
 app.get('/jobs/mysleeplezz29', async (req, res) => {
-
+  res.send("OK")
 })
 
 app.get('/jobs/mysleeplezz31', async (req, res) => {
-  
+  res.send("OK")
 })
 
 app.get('/jobs/mysleeplezz32', async (req, res) => {
-  
+  res.send("OK")
 })
 
 app.get('/jobs/mysleeplezz33', async (req, res) => {
-  
+  res.send("OK")
 })
 
 app.get('/jobs/mysleeplezz34', async (req, res) => {
-  
+  res.send("OK")
 })
 
 
@@ -1033,11 +906,11 @@ app.get('/jobs/mysleeplezz34', async (req, res) => {
 // U8fca26b624ea91100255bd2121537e50  furt
 // U2dbc1e671a33e8a5cabe0924be03c073  ploy
  
-app.get('test/inter/:menu/:userid/:pattern', (req, res) => {
+app.get('/test/inter/:menu/:userid/:pattern', (req, res) => {
   const pattern = parseInt(req.params.pattern);
   const userid = req.params.userid
-  const menu = parseInt(req.params.menu)
-  if(menu === 0)
+  const setMenu = parseInt(req.params.menu)
+  if(setMenu === 0)
   {
     const msgPush = {
       type: "template",
@@ -1046,16 +919,16 @@ app.get('test/inter/:menu/:userid/:pattern', (req, res) => {
     }
 
     client.pushMessage(userid, msgPush)
-    console.log("push msg to ", userid)
+    console.log("push msg to ", userid, pattern)
     res.send("OK")
   }
-  else if(menu === 1)
+  else if(setMenu === 1)
   {
     if(pattern === 1)
     {
       const msgPush = cognitivePattern1()
       const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-      client.pushMessage(userToken,echo)
+      client.pushMessage(userid,echo)
       console.log("push ok cognitivePattern1")
       res.send("OK")
     }
@@ -1063,7 +936,7 @@ app.get('test/inter/:menu/:userid/:pattern', (req, res) => {
     {
       const msgPush = cognitivePattern2()
       const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-      client.pushMessage(userToken,echo)
+      client.pushMessage(userid,echo)
       console.log("push ok cognitivePattern1")
       res.send("OK")
     }
@@ -1071,18 +944,18 @@ app.get('test/inter/:menu/:userid/:pattern', (req, res) => {
     {
       const msgPush = cognitivePattern3()
       const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-      client.pushMessage(userToken,echo)
+      client.pushMessage(userid,echo)
       console.log("push ok cognitivePattern1")
       res.send("OK")
     }
   }
-  else if(menu === 2)
+  else if(setMenu === 2)
   {
     if(pattern === 1)
     {
       const msgPush = anxietyModelPattern1()
       const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-      client.pushMessage(userToken,echo)
+      client.pushMessage(userid,echo)
       console.log("push ok anxietyModelPattern1")
       res.send("OK")
     }
@@ -1090,7 +963,7 @@ app.get('test/inter/:menu/:userid/:pattern', (req, res) => {
     {
       const msgPush = anxietyModelPattern2()
       const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-      client.pushMessage(userToken,echo)
+      client.pushMessage(userid,echo)
       console.log("push ok anxietyModelPattern1")
       res.send("OK")
     }
@@ -1098,12 +971,21 @@ app.get('test/inter/:menu/:userid/:pattern', (req, res) => {
     {
       const msgPush = anxietyModelPattern3()
       const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-      client.pushMessage(userToken,echo)
+      client.pushMessage(userid,echo)
       console.log("push ok anxietyModelPattern1")
       res.send("OK")
     }
   }
+  else if(setMenu === 4)
+  {
+      const msgPush = activitiesScgedulingFunc()
+      const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+      client.pushMessage(userid,echo)
+      console.log("push ok activitiesScgedulingFunc")
+      res.send("OK")
+  }
 })
+
 
 
 
