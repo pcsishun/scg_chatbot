@@ -11,8 +11,13 @@ import relaxation  from './intervantion/relaxation.js';
 import deepSlowBreathing from './intervantion/deepSlowBreathing.js';
 import {cognitivePattern1, cognitivePattern2, cognitivePattern3} from './intervantion/cognitive.js'
 import {anxietyModelPattern1, anxietyModelPattern2, anxietyModelPattern3} from './intervantion/anxietyModel.js'
-
+import activitiesScgedulingFunc from './intervantion/activitiesScheduling.js'
+import relaxationTwo from './intervantion/relaxationTwo.js'
  
+import openCam from './ricemenufunction/openCam.js'
+import testsinglog from './ricemenufunction/testsinglog.js'
+import faqMsg from './ricemenufunction/faqMsg.js'
+
 const app = express();
 const port = process.env.PORT || 5500;
 
@@ -289,16 +294,63 @@ app.post('/callback', async (request, response) => {
       return client.replyMessage(token, echo)
     }
     else if(msgText === "Muscle relax"){
+      const setDate = new Date();
+      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+
+      const kind = "card_menu_select"
+      const taskKey = datastore.key([kind]);
+      const task = {
+                key: taskKey,
+                data: {
+                  createDateTime: isDate,
+                  menu_name: msgText,
+                  userid: userID
+                },
+              };
+
+      await datastore.save(task)
+
       const msgReply = "Introduce progressive muscle relaxation:\n https://www.youtube.com/watch?v=GFh-L8YKh3k"
       const echo ={type:'text', text: msgReply}
       return client.replyMessage(token, echo)
     }
     else if(msgText === "breathing Video"){
+      const setDate = new Date();
+      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+
+      const kind = "card_menu_select"
+      const taskKey = datastore.key([kind]);
+      const task = {
+                key: taskKey,
+                data: {
+                  createDateTime: isDate,
+                  menu_name: msgText,
+                  userid: userID
+                },
+              };
+
+      await datastore.save(task)
       const msgReply = "Introduce deep-slow breathing: \n https://drive.google.com/file/d/1MWpKICah8GhYA5H4AMujucm1xMx5o24L/view"
       const echo = {type:'text', text: msgReply}
       return client.replyMessage(token, echo)
     }
     else if(msgText === "Music Relax"){
+      const setDate = new Date();
+      const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+
+      const kind = "card_menu_select"
+      const taskKey = datastore.key([kind]);
+      const task = {
+                key: taskKey,
+                data: {
+                  createDateTime: isDate,
+                  menu_name: msgText,
+                  userid: userID
+                },
+              };
+
+      await datastore.save(task)
+
       const msgReply = "กรุณาเลือกเพลงได้ตามลิงก์ได้เลยคะ:\n 1.White Noise: https://www.youtube.com/watch?v=tjMOiabqK7A \n 2.Forest https://www.youtube.com/watch?v=1ZYbU82GVz4 \n 3.Music https://www.youtube.com/watch?v=hlWiI4xVXKY \n 4.Sea https://www.youtube.com/watch?v=PgkvwG971hw"
       const echo = {type: 'text', text: msgReply}
       return client.replyMessage(token, echo)
@@ -310,7 +362,7 @@ app.post('/callback', async (request, response) => {
     //  *************************  // 
 
 
-    else if(msgText.includes("สวัสดี mysleepless") === true)
+    else if(msgText.includes("สวัสดี mysleepless") === true || msgText === "ฉันทำเสร็จเเล้ว!!")
     {
       const setMenuSelect = msgText.split(" ")
       console.log("1. Intervention ===> ", setMenuSelect)
@@ -449,6 +501,28 @@ app.post('/callback', async (request, response) => {
             return client.replyMessage(token, echo)
         }
         /// end Anxiety Model or unfinished_business /// 
+      }
+      if(msgText === "ฉันทำเสร็จเเล้ว!!")
+      {
+        const setDate = new Date();
+        const isDate = setDate.getFullYear()+"/"+(setDate.getMonth() + 1)+"/"+setDate.getDate()+" "+setDate.getHours()+":" + setDate.getMinutes()+":"+setDate.getSeconds()
+
+        const kind = "card_menu_select"
+        const taskKey = datastore.key([kind]);
+        const task = {
+                key: taskKey,
+                data: {
+                  createDateTime: isDate,
+                  menu_name: "Activities_Scheduling",
+                  userid: userID
+                },
+              };
+
+        await datastore.save(task)
+
+        const msgReply = "บันทึกข้อมูลเรียบร้อยคะ ขอให้วันนี้เป็นวันที่ดีสำหรับท่านนะคะ :)"
+        const echo = {type:'text', text: msgReply}
+        return client.replyMessage(token, echo)
       }
  
     }
@@ -710,9 +784,328 @@ app.post('/callback', async (request, response) => {
 // ********* triggerActive ********* // 
 // ********************************* //
 
+// production //
+
+app.get('/jobs/mysleeplezz01/1', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz01/2', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+app.get('/jobs/mysleeplezz01/3', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+
+
+app.get('/jobs/mysleeplezz02/1', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz02/2', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+app.get('/jobs/mysleeplezz02/3', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+
+
+app.get('/jobs/mysleeplezz03', async (req, res) => {
+  
+})
+
+
+app.get('/jobs/mysleeplezz07/1', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz07/2', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+app.get('/jobs/mysleeplezz07/3', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+
+
+app.get('/jobs/mysleeplezz08/1', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz08/2', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+app.get('/jobs/mysleeplezz08/3', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+
+
+app.get('/jobs/mysleeplezz09/1', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz09/2', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+app.get('/jobs/mysleeplezz09/3', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+
+
+
+app.get('/jobs/mysleeplezz11', async (req, res) => {
+  
+})
+
+
+app.get('/jobs/mysleeplezz12', async (req, res) => {
+  
+})
+
+
+app.get('/jobs/mysleeplezz14/1', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz14/2', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+app.get('/jobs/mysleeplezz14/3', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+
+
+app.get('/jobs/mysleeplezz15', async (req, res) => {
+  
+})
+
+
+app.get('/jobs/mysleeplezz16', async (req, res) => {
+  
+})
+
+
+app.get('/jobs/mysleeplezz18', async (req, res) => {
+  
+})
+
+
+app.get('/jobs/mysleeplezz22/1', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz22/2', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+app.get('/jobs/mysleeplezz22/3', async (req, res) => {
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  return client.replyMessage(token, echo);
+})
+
+
+app.get('/jobs/mysleeplezz23', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxation()
+  }
+  client.pushMessage(userToken, msgPush)
+  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+
+app.get('/jobs/mysleeplezz25', async (req, res) => {
+  
+})
+
+app.get('/jobs/mysleeplezz26', async (req, res) => {
+  
+})
+
+app.get('/jobs/mysleeplezz29', async (req, res) => {
+
+})
+
+app.get('/jobs/mysleeplezz31', async (req, res) => {
+  
+})
+
+app.get('/jobs/mysleeplezz32', async (req, res) => {
+  
+})
+
+app.get('/jobs/mysleeplezz33', async (req, res) => {
+  
+})
+
+app.get('/jobs/mysleeplezz34', async (req, res) => {
+  
+})
+
+
+// end production // 
+
+
+
 /// ***************  ***************//
 // test push random msg cognitive // 
 /// ***************  ***************//
+
+// U51fca2ec938022c69e9b151cef5edf35  Earth
+// Ub4ce4ff562a58ef44876ae6aa1ca6a00  peak
+// U4551e58d8b384c3b5129281927ee970a  proud
+// U8fca26b624ea91100255bd2121537e50  furt
+// U2dbc1e671a33e8a5cabe0924be03c073  ploy
+ 
+app.get('test/inter/:menu/:userid/:pattern', (req, res) => {
+  const pattern = parseInt(req.params.pattern);
+  const userid = req.params.userid
+  const menu = parseInt(req.params.menu)
+  if(menu === 0)
+  {
+    const msgPush = {
+      type: "template",
+      altText: "relaxation",
+      template: relaxation()
+    }
+
+    client.pushMessage(userid, msgPush)
+    console.log("push msg to ", userid)
+    res.send("OK")
+  }
+  else if(menu === 1)
+  {
+    if(pattern === 1)
+    {
+      const msgPush = cognitivePattern1()
+      const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+      client.pushMessage(userToken,echo)
+      console.log("push ok cognitivePattern1")
+      res.send("OK")
+    }
+    else if(pattern === 2)
+    {
+      const msgPush = cognitivePattern2()
+      const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+      client.pushMessage(userToken,echo)
+      console.log("push ok cognitivePattern1")
+      res.send("OK")
+    }
+    else if(pattern === 3)
+    {
+      const msgPush = cognitivePattern3()
+      const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+      client.pushMessage(userToken,echo)
+      console.log("push ok cognitivePattern1")
+      res.send("OK")
+    }
+  }
+  else if(menu === 2)
+  {
+    if(pattern === 1)
+    {
+      const msgPush = anxietyModelPattern1()
+      const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+      client.pushMessage(userToken,echo)
+      console.log("push ok anxietyModelPattern1")
+      res.send("OK")
+    }
+    else if(pattern === 2)
+    {
+      const msgPush = anxietyModelPattern2()
+      const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+      client.pushMessage(userToken,echo)
+      console.log("push ok anxietyModelPattern1")
+      res.send("OK")
+    }
+    else if(pattern === 3)
+    {
+      const msgPush = anxietyModelPattern3()
+      const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+      client.pushMessage(userToken,echo)
+      console.log("push ok anxietyModelPattern1")
+      res.send("OK")
+    }
+  }
+})
+
+
 
 app.get('/test/earth', async (req, res) => {
   console.log('test cognitive random msg');
@@ -745,135 +1138,7 @@ app.get('/test/earth', async (req, res) => {
 
 })
 
-
-app.get('/test/peak', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
-  if(randNum === 0)
-  {
-    const msgPush = cognitivePattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = cognitivePattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = cognitivePattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern3")
-    res.send("OK")
-  }
-
-})
-
-
-app.get('/test/proud', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "U4551e58d8b384c3b5129281927ee970a"
-  if(randNum === 0)
-  {
-    const msgPush = cognitivePattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = cognitivePattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = cognitivePattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern3")
-    res.send("OK")
-  }
-
-})
-
-
-app.get('/test/furt', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "U8fca26b624ea91100255bd2121537e50"
-  if(randNum === 0)
-  {
-    const msgPush = cognitivePattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = cognitivePattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = cognitivePattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern3")
-    res.send("OK")
-  }
-
-})
-
-
-app.get('/test/ploy', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "U2dbc1e671a33e8a5cabe0924be03c073"
-  if(randNum === 0)
-  {
-    const msgPush = cognitivePattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = cognitivePattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = cognitivePattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern3")
-    res.send("OK")
-  }
-
-})
-
-
+ 
 
 /// ***************  ***************//
 // end push random msg cognitive // 
@@ -888,130 +1153,6 @@ app.get('/test2/earth', async (req, res) => {
   console.log('test cognitive random msg');
   const randNum = parseInt(Math.random() * 3);
   const userToken = "U51fca2ec938022c69e9b151cef5edf35"
-  if(randNum === 0)
-  {
-    const msgPush = anxietyModelPattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = anxietyModelPattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = anxietyModelPattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern3")
-    res.send("OK")
-  }
-
-})
-
-app.get('/test2/peak', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
-  if(randNum === 0)
-  {
-    const msgPush = anxietyModelPattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = anxietyModelPattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = anxietyModelPattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern3")
-    res.send("OK")
-  }
-
-})
-
-app.get('/test2/proud', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "U4551e58d8b384c3b5129281927ee970a"
-  if(randNum === 0)
-  {
-    const msgPush = anxietyModelPattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = anxietyModelPattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = anxietyModelPattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern3")
-    res.send("OK")
-  }
-
-})
-
-app.get('/test2/furt', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "U8fca26b624ea91100255bd2121537e50"
-  if(randNum === 0)
-  {
-    const msgPush = anxietyModelPattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = anxietyModelPattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = anxietyModelPattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern3")
-    res.send("OK")
-  }
-
-})
-
-app.get('/test2/ploy', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "U2dbc1e671a33e8a5cabe0924be03c073"
   if(randNum === 0)
   {
     const msgPush = anxietyModelPattern1()
@@ -1202,696 +1343,7 @@ async function addFireStorage(userID,firstName, lastName){
  
  
 
-// flex menu week selection // 
 
-function getFlexMenu(uid) {
-  return {
-    "type": "bubble",
-    "direction": "ltr",
-    "header": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "กำลังพัฒนา",
-          "align": "center",
-          "contents": []
-        }
-      ]
-    },
-    "hero": {
-      "type": "image",
-      "url": "https://cdn-icons.flaticon.com/png/512/294/premium/294968.png?token=exp=1636695070~hmac=36151095def36b2029f213c740c2ab61",
-      "size": "full",
-      "aspectRatio": "1.51:1",
-      "aspectMode": "fit"
-    },
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "button",
-          "action": {
-            "type": "uri",
-            "label": "Week1",
-            "text": `https://storage.googleapis.com/scg_storage/demo/U55b053c3f77d8a2ac431ec34c4114539-week1.html`
-          }
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "Week2",
-            "text": "Week2"
-          }
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "Week3",
-            "text": "Week3"
-          }
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "Week4",
-            "text": "Week4"
-          }
-        }
-      ]
-    }
-  }
-}
-
-
-
-
-// flex msg before open cam // 
-function openCam() {
-  return {
-    "type": "bubble",
-    "direction": "ltr",
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "ช่วงนี้การนอนของคุณเป็นอย่างไร",
-          "align": "center",
-          "gravity": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "เช่น นอนไม่ค่อยดีเลยงานเยอะมาก",
-          "align": "center",
-          "gravity": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "เช่น สงสัยกังวลเยอะเลยนอนไม่หลับ",
-          "align": "center",
-          "gravity": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ถ้านอนไม่ดีแบบนี้กลัวกระทบงานจัง",
-          "align": "center",
-          "gravity": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "___________________________",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "หากพร้อมเชิญอัด video ได้เลยค่ะ",
-          "align": "center",
-          "contents": []
-        }
-      ]
-    },
-    "footer": {
-      "type": "box",
-      "layout": "horizontal",
-      "contents": [
-        {
-          "type": "button",
-          "action": {
-            "type": "uri",
-            "label": "Open Video",
-            "uri": "https://line.me/R/nv/camera/"  
-          },
-          "color": "#8DE2E9FF"
-        }
-      ]
-    }
-  }
-}
-
-// collectPersonalData // 
-function collectPersonalData(){
-  return{
-    "type": "bubble",
-    "direction": "ltr",
-    "header": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "MySleepLess",
-          "size": "xl",
-          "color": "#070B5BFF",
-          "align": "center",
-          "contents": []
-        }
-      ]
-    },
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "ขอต้อนรับเข้าสู่ My Sleeplezz ",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "เพื่อร่วมออกแบบ Solution ",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "การนอนหลับที่ดีไปด้วยกัน",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ก่อนอื่นรบกวนกรอกข้อมูลตาม",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "รูปแบบดังต่อไปนี้ด้วยคะ",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ดำเนินการต่อ",
-            "text": "เริ่มบันทึกข้อมูล"
-          }
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ข้อสงสัยที่พบบ่อย",
-            "text": "FAQ"
-          }
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ติดต่อสอบถาม",
-            "text": "ติดต่อสอบถาม"
-        }  
-      }
-      ]
-    },
-  }
-}
-
-function testsinglog(uid){
-  return{
-    "type": "bubble",
-    "direction": "ltr",
-    "header": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "Dashboard",
-          "align": "center",
-          "contents": []
-        }
-      ]
-    },
-    "hero": {
-      "type": "image",
-      "url": "https://www.i-pic.info/i/mezQ90052.png", //"https://cdn-icons-png.flaticon.com/512/2329/2329093.png"
-      "size": "full",
-      "aspectRatio": "1.51:1",
-      "aspectMode": "fit"
-    },
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "button",
-          "action": {
-            "type": "uri",
-            "label": "สัปดาห์ที่1",
-            "uri": `https://storage.googleapis.com/scg_storage/demo/${uid}-week1.html`  
-          }
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "uri",
-            "label": "สัปดาห์ที่2",
-            "uri": `https://storage.googleapis.com/scg_storage/demo/${uid}-week2.html`  
-          }
-        }
-      ]
-    }
-  }
-}
-
-function debugtext(){
-  return{
-
-  }
-}
-
-function moodSurvey(){
-  return{
-    "type": "bubble",
-    "direction": "ltr",
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "ทางทีมงานได้รับข้อมูลเรียบร้อยค่ะ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ขั้นตอนถัดไปกรุณาตอบ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "เเบบสอบถามเพื่อประเมินระดับ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ความรุนเเรงของอาการนอน",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ไม่หลับตามปุ่มด้านล่างได้เลยค่ะ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "uri",
-            "label": "ตอบเเบบสอบถาม",
-            "uri": "https://docs.google.com/forms/d/e/1FAIpQLScTseorD6Q0R6gcRRh5VKZNeybHI-OL-7dyULW1QBd6H3xqrQ/viewform"
-          }
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "หลังจากตอบเเบบสอบถามเสร็จเเล้ว",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "กรุณากดปุ่มดำเนินการถัดไปด้วยค่ะ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ดำเนินการถัดไป",
-            "text": "ตอบเเบบสอบถามความรุนเเรงเสร็จสิ้น"
-          }
-        }
-      ]
-    }
-  }
-}
-
-
-function faqMsg(){
-  return{
-    "type": "bubble",
-    "direction": "ltr",
-    "header": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "FAQ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        }
-      ]
-    },
-    "hero": {
-      "type": "image",
-      "url": "https://cdn-icons.flaticon.com/png/512/2058/premium/2058146.png?token=exp=1636565583~hmac=0064784b47de1576829bc36f8eb35afc",
-      "size": "full",
-      "aspectRatio": "1.51:1",
-      "aspectMode": "fit"
-    },
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "โครงการนี้เหมาะกับใคร?",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "โครงการนี้เหมาะกับใคร?"
-          },
- 
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ประโยชน์ที่คาดหวังจากการเข้าร่วม",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "โครงการที่ต่างจากการไปพบแพทย์",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ประโยชน์ที่คาดหวังจากการเข้าร่วม"
-          },
- 
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "โครงการนี้เป็นผลิตภัณฑ์ที่ออกตลาด",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "แล้วหรือยัง?",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ผลิตภัณฑ์ที่ออกตลาด?"
-          },
-   
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "สิ่งที่ผู้เข้าร่วมโครงการจะได้รับ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "สิ่งที่ผู้เข้าร่วมโครงการจะได้รับ"
-          },
-         
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "มีการดูแลความปลอดภัยของข้อมูล",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ผู้ร่วมโครงการอย่างไร",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ดูแลข้อมูลยังไง"
-          },
-   
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ขั้นตอนและกำหนดการ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ขั้นตอนและกำหนดการ"
-          },
-     
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ความน่าเชื่อถือของทีมพัฒนา",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ทีมพัฒนาน่าเชื่อถือมัย?"
-          },
- 
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ประกาศผลผู้มีสิทธิ์เข้าร่วมเมื่อไร?",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ประกาศผลผู้มีสิทธิ์เข้าร่วมเมื่อไร?"
-          },
- 
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ต้องทำอะไรบ้างในระหว่าง",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "เข้าร่วมโครงการ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ต้องทำอะไรบ้าง?"
-          },
- 
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "สามารถยกเลิกการเข้าร่วมโครงการ",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ระหว่างการดำเนินโครงการได้ไหม?",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ยกเลิกการเข้าร่วมโครงการ?"
-          },
-     
-        },
-        {
-          "type": "text",
-          "text": ".",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "ข้อมูลอะไรบ้างที่ต้องยินยอมแชร์",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "เพื่อการเข้าร่วมโครงการ?",
-          "weight": "bold",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ตอบคำถาม",
-            "text": "ข้อมูลอะไรบ้าง?"
-          },
-       
-        },
-        {
-          "type": "text",
-          "text": "____________",
-          "align": "center",
-          "contents": []
-        },
-        {
-          "type": "button",
-          "action": {
-            "type": "message",
-            "label": "ติดต่อสอบถาม",
-            "text": "ติดต่อสอบถาม"
-          },
-        
-        },        
-      ]
-    }
-  }
-}
 
 app.listen(port, () => {
   console.log(`serve run at port ${port}`)
