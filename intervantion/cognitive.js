@@ -51,14 +51,6 @@ function cognitivePattern1(){
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless cognitive:1"
               }
-            },
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "รายละเอียด",
-                "text": "รายละเอียด cognitive"
-              }
             }
           ]
         }
@@ -119,14 +111,6 @@ function cognitivePattern2(){
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless cognitive:2"
               }
-            },
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "รายละเอียด",
-                "text": "รายละเอียด cognitive"
-              }
             }
           ]
         }
@@ -186,14 +170,6 @@ function cognitivePattern3(){
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless cognitive:3"
-              }
-            },
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "รายละเอียด",
-                "text": "รายละเอียด cognitive"
               }
             }
           ]

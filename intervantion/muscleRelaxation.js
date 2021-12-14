@@ -42,7 +42,7 @@ function muscleRelaxation(){
             },
             {
               "type": "text",
-              "text": "1. Clip บอกวิธีการทำ progressive -",
+              "text": "1.Clip สาธิตบอกวิธีการทำ progressive",
               "align": "center",
               "contents": []
             },
@@ -60,7 +60,7 @@ function muscleRelaxation(){
             },
             {
               "type": "text",
-              "text": "2. เปิดเพลง 20 นาที ",
+              "text": "2. เลือกเปิดเพลง 20 นาที",
               "align": "center",
               "contents": []
             }
@@ -74,7 +74,7 @@ function muscleRelaxation(){
               "type": "button",
               "action": {
                 "type": "message",
-                "label": "1.Muscle relax",
+                "label": "ดู Clip สาธิต",
                 "text": "Muscle relax"
               }
             },
@@ -82,7 +82,7 @@ function muscleRelaxation(){
               "type": "button",
               "action": {
                 "type": "message",
-                "label": "2.Music Relax",
+                "label": "เลือกเพลง",
                 "text": "Music Relax"
               }
             }

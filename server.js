@@ -16,7 +16,7 @@ import relaxationTwo from './intervantion/relaxationTwo.js'
  
 import openCam from './ricemenufunction/openCam.js'
 import testsinglog from './ricemenufunction/testsinglog.js'
-import faqMsg from './ricemenufunction/faqMsg.js'
+// import faqMsg from './ricemenufunction/faqMsg.js'
 
 const app = express();
 const port = process.env.PORT || 5500;
@@ -68,16 +68,13 @@ app.post('/callback', async (request, response) => {
   if(msgType === "text")
   {
 
-    const arraySplitWord = msgText.split('-');
-    const lengthOfArrary = arraySplitWord.length;  
-
-    if(msgText === "FAQ"){
-      const msgReply = faqMsg();
-      const echo = { type: 'flex', altText: 'This is a Flex Message', contents: msgReply };
-      return client.replyMessage(token, echo);
-    }
+    // if(msgText === "FAQ"){
+    //   const msgReply = faqMsg();
+    //   const echo = { type: 'flex', altText: 'This is a Flex Message', contents: msgReply };
+    //   return client.replyMessage(token, echo);
+    // }
     // for dev // 
-    else if(msgText === "!debugerTester!"){
+    if(msgText === "!debugerTester!"){
 
       const debugMsg = relaxation();
       const msgDeploy = {
@@ -87,18 +84,17 @@ app.post('/callback', async (request, response) => {
       }
 
       console.log("debuger-tester")
- 
-        return client.pushMessage(userID, msgDeploy)
+      return client.pushMessage(userID, msgDeploy)
    
     } 
-    else if (lengthOfArrary === 2)
+    else if(msgText.includes("--") === true)
     {
+      const arraySplitWord = msgText.split('--');
+      const lengthOfArrary = arraySplitWord.length; 
 
- 
-  
-      if(lengthOfArrary === 2 )
+      if(lengthOfArrary === 2)
       {
-          const arrayWord = msgText.split('-');
+          const arrayWord = msgText.split('--');
           const firstName = arrayWord[0];
           const lastName = arrayWord[1];
           if(firstName === undefined || lastName === undefined)
@@ -112,8 +108,8 @@ app.post('/callback', async (request, response) => {
           {
             addFireStorage(userID, firstName, lastName);
 
-            const msgReply = moodSurvey();
-            const echo = { type: 'flex', altText: 'This is a Flex Message', contents: msgReply };
+            const msgReply = "ได้รับข้อมูลเเล้วคะ"
+            const echo = { type: 'text', text:msgReply};
             return client.replyMessage(token, echo);   
           }
       }
@@ -152,7 +148,7 @@ app.post('/callback', async (request, response) => {
       return client.replyMessage(token, echo)
     }
     else if(msgText === "รายละเอียด Muscle relaxation"){
-      const msgReply = "เพื่อการนอนหลับที่ผ่อนคลายในคืนนี้ เรามาผ่อนคลายกล้ามเนื้อกันนะคะ วิธีนี้เรียกว่า Progressive Muscle Relaxation โดยใช้หลักการตั้งใจเกร็งกลุ่มกล้ามเนื้อมัดใหญ่ แล้วค่อยๆ ผ่อนคลายให้สอดคล้องกับการหายใจ เพื่อเป็นการลดสารแห่งความเครียด  ทำให้จิตใจสงบปล่อยวางความคิด ลดปฏิกริยาของร่างกายที่ตอบสนองต่อความเครียด ความกังวล ทำให้คุณภาพการนอนหลับดีขึ้นค่ะ  เรามาทำพร้อมๆ กันตาม clip ที่แนะนำได้เลยนะคะ และถ้าหากต้องการเสียงเพลงประกอบเพื่อการผ่อนคลายสามารถ click เลือกเพลงด้านล่างได้เลยค่ะ"
+      const msgReply = "เพื่อการนอนหลับที่ผ่อนคลายในคืนนี้ เรามาผ่อนคลายกล้ามเนื้อกันนะคะ วิธีนี้เรียกว่า Progressive Muscle Relaxation คิดค้นโดยนายแพทย์ Edmund Jacobson ชาวอเมริกัน โดยใช้หลักการตั้งใจเกร็งกลุ่มกล้ามเนื้อมัดใหญ่ แล้วค่อยๆ ผ่อนคลายให้สอดคล้องกับการหายใจ เพื่อเป็นการลดสารแห่งความเครียด  ทำให้จิตใจสงบปล่อยวางความคิด ลดปฏิกริยาของร่างกายที่ตอบสนองต่อความเครียด ความกังวล ทำให้คุณภาพการนอนหลับดีขึ้นค่ะ  เรามาทำพร้อมๆ กันตาม clip ที่แนะนำได้เลยนะคะ และถ้าหากต้องการเสียงเพลงประกอบเพื่อการผ่อนคลายสามารถ click เลือกเพลงด้านล่างได้เลยค่ะ"
       const echo = {type: 'text', text:msgReply}
       return client.replyMessage(token, echo)
     }
@@ -425,7 +421,7 @@ app.post('/callback', async (request, response) => {
       // console.log("setMenu else ===>",setMenu)
 
       let setIdCount = tasksData[0].id_log
-      console.log("setIdCount else ===>",setIdCount)
+      // console.log("setIdCount else ===>",setIdCount)
 
       let menuRunning = tasksData[0].running_number
       // console.log("setIdCount else ===>",menuRunning)
@@ -436,13 +432,13 @@ app.post('/callback', async (request, response) => {
 
       if(countingTask === 0)
       {
-        console.log("countingTask === 0 ")
+        // console.log("countingTask === 0 ")
         const msgReply = {type: "text", text: "ขอโทษด้วยค่ะทางระบบเราไม่รู้จักคำดังกล่าว กรุณาใช้หน้าเมนูเพื่อเข้าสู่เนื้อหาด้วยค่ะ หรือตรวจสอบรูปแบบการส่งข้อมูลหากมีข้อสงสัยอื่นๆสามารถติดต่อได้ทางเบอร์ วิศวิน 0952512060, เวทินี 0994942426"}
         return client.replyMessage(token, msgReply)
       }
       else if(chatStatus === true)
       {
-        console.log("chatStatus === true ",chatStatus )
+        // console.log("chatStatus === true ",chatStatus )
         const replyMsg = "สำหรับวันนี้เสร็จเรียบร้อยเเล้วค่ะหากมีคำถามหรือปัญหาใด ๆ สามารถติดต่อสอบถามได้ทาง วิศวิน 0952512060, เวทินี 0994942426"
         const echo = {type: 'text', text: replyMsg}
         return client.replyMessage(token, echo)
@@ -520,7 +516,7 @@ app.post('/callback', async (request, response) => {
           const [setTasks] = await datastore.runQuery(setMsg)
           const msgReplyBack = setTasks[0].chatmsg
           
-          if(msgReplyBack === "ฝันดีนะคะ")
+          if(msgReplyBack === "ฝันดีนะคะ" ||  msgReplyBack.includes("นะคะ ฝันดีค่ะ") === true)
           {
             setIdCount += 1
             console.log("else menuRunning === ฝันดีนะคะ ",isMenuRunnining )
@@ -579,7 +575,7 @@ app.post('/callback', async (request, response) => {
           const [setTasks] = await datastore.runQuery(setMsg)
           const msgReplyBack = setTasks[0].chatmsg
           
-          if(msgReplyBack === "ฝันดีนะคะ")
+          if(msgReplyBack === "ฝันดีนะคะ" || msgReplyBack.includes("นะคะ ฝันดีค่ะ") === true)
           {
             setIdCount += 1
             console.log("else menuRunning === ฝันดีนะคะ ",isMenuRunnining )
@@ -658,9 +654,10 @@ app.post('/callback', async (request, response) => {
 // ********************************* //
 
 // production //
-
-app.get('/jobs/mysleeplezz01/1', async (req, res) => {
-  const userToken = ""
+///// mysleeplezz /////  21.30 1 = 07.00 , 2=13.00  
+// Uc6604bf4f9659750e0caec4dd9776ca6 //
+app.get('/jobs/mysleeplezz01/1', async (req, res) => {  
+  const userToken = "U51fca2ec938022c69e9b151cef5edf35"
   const msgPush = {
     type: "template",
     altText: "relaxation",
@@ -671,70 +668,134 @@ app.get('/jobs/mysleeplezz01/1', async (req, res) => {
   res.send("OK")
 })
 app.get('/jobs/mysleeplezz01/2', async (req, res) => {
+  const userToken = "U51fca2ec938022c69e9b151cef5edf35"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
 app.get('/jobs/mysleeplezz01/3', async (req, res) => {
+  const userToken = "U51fca2ec938022c69e9b151cef5edf35"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
+///// mysleeplezz ///// 
 
-
+///// mysleeplezz /////  22.00 1 = 06.30 , 2=13.00
+// U1fc2587db1fedf8059e7af38886c6768 //
 app.get('/jobs/mysleeplezz02/1', async (req, res) => {
-  const userToken = ""
+  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
   const msgPush = {
     type: "template",
     altText: "relaxation",
     template: relaxationTwo()
   }
   client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
   res.send("OK")
 })
 app.get('/jobs/mysleeplezz02/2', async (req, res) => {
+  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
-})
-app.get('/jobs/mysleeplezz02/3', async (req, res) => {
-  const msgReply = activitiesScgedulingFunc()
-  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
-})
-
-
-app.get('/jobs/mysleeplezz03', async (req, res) => {
+  client.pushMessage(userToken, echo);
   res.send("OK")
 })
+app.get('/jobs/mysleeplezz02/3', async (req, res) => {
+  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
 
-
-app.get('/jobs/mysleeplezz07/1', async (req, res) => {
-  const userToken = ""
+///// mysleeplezz /////  22.30 23.00 1=07.30 , 2=13.00
+//  Ud5cfd4fd0279342c7764eee428947453  //
+app.get('/jobs/mysleeplezz03/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "U4551e58d8b384c3b5129281927ee970a"
+  if(randNum === 0)
+  {
+    const msgPush = anxietyModelPattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = anxietyModelPattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = anxietyModelPattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz03/2', async (req, res) => {
+  const userToken = "U4551e58d8b384c3b5129281927ee970a"
   const msgPush = {
     type: "template",
     altText: "relaxation",
     template: relaxationTwo()
   }
   client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz03/3', async (req, res) => {
+  const userToken = "U4551e58d8b384c3b5129281927ee970a"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz03/4', async (req, res) => {
+  const userToken = "U4551e58d8b384c3b5129281927ee970a"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+///// mysleeplezz ///// 
+// U84ec9a53698518ed84ac3c598c725c5f // 
+app.get('/jobs/mysleeplezz07/1', async (req, res) => {
+  const userToken = "U8fca26b624ea91100255bd2121537e50"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
   res.send("OK")
 })
 app.get('/jobs/mysleeplezz07/2', async (req, res) => {
+  const userToken = "U8fca26b624ea91100255bd2121537e50"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
 app.get('/jobs/mysleeplezz07/3', async (req, res) => {
+  const userToken = "U8fca26b624ea91100255bd2121537e50"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
+///// mysleeplezz ///// 
 
-
+///// mysleeplezz ///// 
+//  Ud67028a74ad259f7af0b627ac21ba793 // 
 app.get('/jobs/mysleeplezz08/1', async (req, res) => {
-  const userToken = ""
+  const userToken = "U2dbc1e671a33e8a5cabe0924be03c073"
   const msgPush = {
     type: "template",
     altText: "relaxation",
@@ -745,17 +806,23 @@ app.get('/jobs/mysleeplezz08/1', async (req, res) => {
   res.send("OK")
 })
 app.get('/jobs/mysleeplezz08/2', async (req, res) => {
+  const userToken = "U2dbc1e671a33e8a5cabe0924be03c073"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
 app.get('/jobs/mysleeplezz08/3', async (req, res) => {
+  const userToken = "U2dbc1e671a33e8a5cabe0924be03c073"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
+///// mysleeplezz ///// 
 
-
+///// mysleeplezz ///// 
+// //
 app.get('/jobs/mysleeplezz09/1', async (req, res) => {
   const userToken = ""
   const msgPush = {
@@ -764,34 +831,132 @@ app.get('/jobs/mysleeplezz09/1', async (req, res) => {
     template: relaxationTwo()
   }
   client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
   res.send("OK")
 })
 app.get('/jobs/mysleeplezz09/2', async (req, res) => {
+  const userToken = ""
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
 app.get('/jobs/mysleeplezz09/3', async (req, res) => {
+  const userToken = ""
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
-})
-
-
-
-app.get('/jobs/mysleeplezz11', async (req, res) => {
+  client.pushMessage(userToken, echo);
   res.send("OK")
 })
+///// mysleeplezz ///// 
 
-
-app.get('/jobs/mysleeplezz12', async (req, res) => {
+///// mysleeplezz ///// 
+// U3b00d41609c9fb52e543d450de386373 //
+app.get('/jobs/mysleeplezz11/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "U3b00d41609c9fb52e543d450de386373"
+  if(randNum === 0)
+  {
+    const msgPush = anxietyModelPattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = anxietyModelPattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = anxietyModelPattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz11/2', async (req, res) => {
+  const userToken = "U3b00d41609c9fb52e543d450de386373"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
   res.send("OK")
 })
+app.get('/jobs/mysleeplezz11/3', async (req, res) => {
+  const userToken = "U3b00d41609c9fb52e543d450de386373"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz11/4', async (req, res) => {
+  const userToken = "U3b00d41609c9fb52e543d450de386373"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
 
-
-app.get('/jobs/mysleeplezz14/1', async (req, res) => {
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz12/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
   const userToken = ""
+  if(randNum === 0)
+  {
+    const msgPush = anxietyModelPattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = anxietyModelPattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = anxietyModelPattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz12/2', async (req, res) => {
+  const userToken = ""
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz12/3', async (req, res) => {
+  const userToken = ""
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz12/4', async (req, res) => {
+  const userToken = ""
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz14/1', async (req, res) => {
+  const userToken = "Ub45121a255e0c55c641c4c320f3bb68c"
   const msgPush = {
     type: "template",
     altText: "relaxation",
@@ -802,96 +967,583 @@ app.get('/jobs/mysleeplezz14/1', async (req, res) => {
   res.send("OK")
 })
 app.get('/jobs/mysleeplezz14/2', async (req, res) => {
+  const userToken = "Ub45121a255e0c55c641c4c320f3bb68c"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
 app.get('/jobs/mysleeplezz14/3', async (req, res) => {
+  const userToken = "Ub45121a255e0c55c641c4c320f3bb68c"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
-})
-
-
-app.get('/jobs/mysleeplezz15', async (req, res) => {
+  client.pushMessage(userToken, echo);
   res.send("OK")
 })
+///// mysleeplezz ///// 
 
 
-app.get('/jobs/mysleeplezz16', async (req, res) => {
-  res.send("OK")
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz15/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "Ub4ce8f3d505f73a3aad1b1ee99130404"
+  if(randNum === 0)
+  {
+    const msgPush = cognitivePattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = cognitivePattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = cognitivePattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
 })
-
-
-app.get('/jobs/mysleeplezz18', async (req, res) => {
-  res.send("OK")
-})
-
-
-app.get('/jobs/mysleeplezz22/1', async (req, res) => {
-  const userToken = ""
+app.get('/jobs/mysleeplezz15/2', async (req, res) => {
+  const userToken = "Ub4ce8f3d505f73a3aad1b1ee99130404"
   const msgPush = {
     type: "template",
     altText: "relaxation",
     template: relaxationTwo()
   }
   client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz15/3', async (req, res) => {
+  const userToken = "Ub4ce8f3d505f73a3aad1b1ee99130404"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz15/4', async (req, res) => {
+  const userToken = "Ub4ce8f3d505f73a3aad1b1ee99130404"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz16/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "U46a233d655310067e87cfdd98ef16d6e"
+  if(randNum === 0)
+  {
+    const msgPush = cognitivePattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = cognitivePattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = cognitivePattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz16/2', async (req, res) => {
+  const userToken = "U46a233d655310067e87cfdd98ef16d6e"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz16/3', async (req, res) => {
+  const userToken = "U46a233d655310067e87cfdd98ef16d6e"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz16/4', async (req, res) => {
+  const userToken = "U46a233d655310067e87cfdd98ef16d6e"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz18/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "U31c6bdae5eeb3be87053099deedb0436"
+  if(randNum === 0)
+  {
+    const msgPush = cognitivePattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = cognitivePattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = cognitivePattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz18/2', async (req, res) => {
+  const userToken = "U31c6bdae5eeb3be87053099deedb0436"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz18/3', async (req, res) => {
+  const userToken = "U31c6bdae5eeb3be87053099deedb0436"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz18/4', async (req, res) => {
+  const userToken = "U31c6bdae5eeb3be87053099deedb0436"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz22/1', async (req, res) => {
+  const userToken = "U4119c1f79108bf8e66f9085d6d53ebc2"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
   res.send("OK")
 })
 app.get('/jobs/mysleeplezz22/2', async (req, res) => {
+  const userToken = "U4119c1f79108bf8e66f9085d6d53ebc2"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
 app.get('/jobs/mysleeplezz22/3', async (req, res) => {
+  const userToken = "U4119c1f79108bf8e66f9085d6d53ebc2"
   const msgReply = activitiesScgedulingFunc()
   const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
-  return client.replyMessage(token, echo);
+  client.pushMessage(userToken, echo);
+  res.send("OK")
 })
+///// mysleeplezz ///// 
 
 
-app.get('/jobs/mysleeplezz23', async (req, res) => {
-  const userToken = ""
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz23/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "U108ab6f709ac68726e233d6c42317299"
+  if(randNum === 0)
+  {
+    const msgPush = cognitivePattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = cognitivePattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = cognitivePattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz23/2', async (req, res) => {
+  const userToken = "U108ab6f709ac68726e233d6c42317299"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz23/3', async (req, res) => {
+  const userToken = "U108ab6f709ac68726e233d6c42317299"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz23/4', async (req, res) => {
+  const userToken = "U108ab6f709ac68726e233d6c42317299"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz25/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "Ufacd5b50e912cd84aba9628fde69f58a"
+  if(randNum === 0)
+  {
+    const msgPush = cognitivePattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = cognitivePattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = cognitivePattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz25/2', async (req, res) => {
+  const userToken = "Ufacd5b50e912cd84aba9628fde69f58a"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz25/3', async (req, res) => {
+  const userToken = "Ufacd5b50e912cd84aba9628fde69f58a"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz25/4', async (req, res) => {
+  const userToken = "Ufacd5b50e912cd84aba9628fde69f58a"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz26/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "Udcc650d055214b78a1bfdc4d7a198fc8"
+  if(randNum === 0)
+  {
+    const msgPush = cognitivePattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = cognitivePattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = cognitivePattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz26/2', async (req, res) => {
+  const userToken = "Udcc650d055214b78a1bfdc4d7a198fc8"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz26/3', async (req, res) => {
+  const userToken = "Udcc650d055214b78a1bfdc4d7a198fc8"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz26/4', async (req, res) => {
+  const userToken = "Udcc650d055214b78a1bfdc4d7a198fc8"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz29/1', async (req, res) => {
+  const userToken = "U3f2d23d0355119654b49741c6297d7e5"
   const msgPush = {
     type: "template",
     altText: "relaxation",
     template: relaxation()
+  } 
+  client.pushMessage(userToken, msgPush)
+  res.send("OK")
+})
+///// mysleeplezz ///// 
+
+///// mysleeplezz ///// 
+app.get('/jobs/mysleeplezz31/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "U3f2d23d0355119654b49741c6297d7e5"
+  if(randNum === 0)
+  {
+    const msgPush = anxietyModelPattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = anxietyModelPattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = anxietyModelPattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz31/2', async (req, res) => {
+  const userToken = "U3f2d23d0355119654b49741c6297d7e5"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
   }
   client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
   res.send("OK")
 })
-
-app.get('/jobs/mysleeplezz25', async (req, res) => {
+app.get('/jobs/mysleeplezz31/3', async (req, res) => {
+  const userToken = "U3f2d23d0355119654b49741c6297d7e5"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
   res.send("OK")
 })
-
-app.get('/jobs/mysleeplezz26', async (req, res) => {
+app.get('/jobs/mysleeplezz31/4', async (req, res) => {
+  const userToken = "U3f2d23d0355119654b49741c6297d7e5"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
   res.send("OK")
 })
+///// mysleeplezz ///// 
 
-app.get('/jobs/mysleeplezz29', async (req, res) => {
+///// mysleeplezz32 ///// 
+app.get('/jobs/mysleeplezz32/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
+  if(randNum === 0)
+  {
+    const msgPush = anxietyModelPattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = anxietyModelPattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = anxietyModelPattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz32/2', async (req, res) => {
+  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
   res.send("OK")
 })
-
-app.get('/jobs/mysleeplezz31', async (req, res) => {
+app.get('/jobs/mysleeplezz32/3', async (req, res) => {
+  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
   res.send("OK")
 })
-
-app.get('/jobs/mysleeplezz32', async (req, res) => {
+app.get('/jobs/mysleeplezz32/4', async (req, res) => {
+  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
   res.send("OK")
 })
+///// end mysleeplezz32 ///// 
 
-app.get('/jobs/mysleeplezz33', async (req, res) => {
+///// mysleeplezz33 ///// 
+app.get('/jobs/mysleeplezz33/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "U4551e58d8b384c3b5129281927ee970a"
+  if(randNum === 0)
+  {
+    const msgPush = cognitivePattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = cognitivePattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = cognitivePattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz33/2', async (req, res) => {
+  const userToken = "U4551e58d8b384c3b5129281927ee970a"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
   res.send("OK")
 })
-
-app.get('/jobs/mysleeplezz34', async (req, res) => {
+app.get('/jobs/mysleeplezz33/3', async (req, res) => {
+  const userToken = "U4551e58d8b384c3b5129281927ee970a"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
   res.send("OK")
 })
+app.get('/jobs/mysleeplezz33/4', async (req, res) => {
+  const userToken = "U4551e58d8b384c3b5129281927ee970a"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// end mysleeplezz33 ///// 
 
-
+///// mysleeplezz34 ///// 
+app.get('/jobs/mysleeplezz34/1', async (req, res) => {
+  const randNum = parseInt(Math.random() * 3);
+  const userToken = "U464e7ff02d83e76ecd3fb3081d21343d"
+  if(randNum === 0)
+  {
+    const msgPush = cognitivePattern1()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum === 1)
+  {
+    const msgPush = cognitivePattern2()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+  else if(randNum  === 2)
+  {
+    const msgPush = cognitivePattern3()
+    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
+    client.pushMessage(userToken,echo)
+    res.send("OK")
+  }
+})
+app.get('/jobs/mysleeplezz34/2', async (req, res) => {
+  const userToken = "U464e7ff02d83e76ecd3fb3081d21343d"
+  const msgPush = {
+    type: "template",
+    altText: "relaxation",
+    template: relaxationTwo()
+  }
+  client.pushMessage(userToken, msgPush)
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz34/3', async (req, res) => {
+  const userToken = "U464e7ff02d83e76ecd3fb3081d21343d"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+app.get('/jobs/mysleeplezz34/4', async (req, res) => {
+  const userToken = "U464e7ff02d83e76ecd3fb3081d21343d"
+  const msgReply = activitiesScgedulingFunc()
+  const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgReply}
+  client.pushMessage(userToken, echo);
+  res.send("OK")
+})
+///// end mysleeplezz34 ///// 
 // end production // 
 
 
@@ -899,7 +1551,7 @@ app.get('/jobs/mysleeplezz34', async (req, res) => {
 /// ***************  ***************//
 // test push random msg cognitive // 
 /// ***************  ***************//
-// https://testdeploy-330007.as.r.appspot.com/test/inter/:menu/:userid/:pattern // 
+
 // U51fca2ec938022c69e9b151cef5edf35  Earth
 // Ub4ce4ff562a58ef44876ae6aa1ca6a00  peak
 // U4551e58d8b384c3b5129281927ee970a  proud
@@ -984,188 +1636,21 @@ app.get('/test/inter/:menu/:userid/:pattern', (req, res) => {
       console.log("push ok activitiesScgedulingFunc")
       res.send("OK")
   }
-})
-
-
-
-
-app.get('/test/earth', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "U51fca2ec938022c69e9b151cef5edf35"
-  if(randNum === 0)
+  else if(setMenu === 5)
   {
-    const msgPush = cognitivePattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern1")
+    const msgPush = {
+      type: "template",
+      altText: "relaxation",
+      template: relaxationTwo()
+    }
+
+    client.pushMessage(userid, msgPush)
+    console.log("push ok relaxationTwo")
     res.send("OK")
   }
-  else if(randNum === 1)
-  {
-    const msgPush = cognitivePattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = cognitivePattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok cognitivePattern3")
-    res.send("OK")
-  }
-
-})
-
- 
-
-/// ***************  ***************//
-// end push random msg cognitive // 
-/// ***************  ***************//
-
-/// ***************  ***************//
-// test push random msg anxietyModel // 
-/// ***************  ***************//
-
-
-app.get('/test2/earth', async (req, res) => {
-  console.log('test cognitive random msg');
-  const randNum = parseInt(Math.random() * 3);
-  const userToken = "U51fca2ec938022c69e9b151cef5edf35"
-  if(randNum === 0)
-  {
-    const msgPush = anxietyModelPattern1()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern1")
-    res.send("OK")
-  }
-  else if(randNum === 1)
-  {
-    const msgPush = anxietyModelPattern2()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern2")
-    res.send("OK")
-  }
-  else if(randNum  === 2)
-  {
-    const msgPush = anxietyModelPattern3()
-    const echo = {type: 'flex', altText: 'this is a Flex Message', contents: msgPush}
-    client.pushMessage(userToken,echo)
-    console.log("push ok anxietyModelPattern3")
-    res.send("OK")
-  }
-
-})
-
-/// ***************  ***************//
-// end push random msg anxietyModel // 
-/// ***************  ***************//
-
-/// ***************  ***************//
-// start push random msg relax // 
-/// ***************  ***************//
-
-
-
-app.get('/jobs/earth', async (req, res) => {
- 
-  console.log("trigger running Earth")
-
-  const userToken = "U51fca2ec938022c69e9b151cef5edf35"
-  const msgPush = {
-    type: "template",
-    altText: "relaxation",
-    template: relaxation()
-  }
-
-  client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
-  res.send("OK")
-
 })
 
 
-app.get('/jobs/peak', async (req, res) => {
-
- 
-  console.log("trigger running")
-
-  const userToken = "Ub4ce4ff562a58ef44876ae6aa1ca6a00"
-  const msgPush = {
-    type: "template",
-    altText: "relaxation",
-    template: relaxation()
-  }
-
-  client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
-  res.send("OK")
-  
-
-})
-
-
-app.get('/jobs/proud', async (req, res) => {
-
-  
-  console.log("trigger running")
-
-  const userToken = "U4551e58d8b384c3b5129281927ee970a"
-  const msgPush = {
-    type: "template",
-    altText: "relaxation",
-    template: relaxation()
-  }
-
-  client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
-  res.send("OK")
-
-})
-
-app.get('/jobs/furt', async (req, res) => {
-
- 
-  console.log("trigger running")
-
-  const userToken = "U8fca26b624ea91100255bd2121537e50"
-  const msgPush = {
-    type: "template",
-    altText: "relaxation",
-    template: relaxation()
-  }
-
-  client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
-  res.send("OK")
-
-})
-
-app.get('/jobs/ploy', async (req, res) => {
-
- 
-  console.log("trigger running")
-
-  const userToken = "U2dbc1e671a33e8a5cabe0924be03c073"
-  const msgPush = {
-    type: "template",
-    altText: "relaxation",
-    template: relaxation()
-  }
-
-  client.pushMessage(userToken, msgPush)
-  console.log("push msg to ", userToken)
-  res.send("OK")
-
-})
-/// ***************  ***************//
-// end push random msg relax // 
-/// ***************  ***************//
 
 
 // ******************************** //

@@ -1,21 +1,69 @@
 cron:
-  - description: "Earth Cron"
-    url: /jobs/earth
-    schedule: every day 14:35
+  - description: "mysleeplezz01 1Cron"
+    url: /jobs/mysleeplezz01/1
+    schedule: every day 21:30
     timezone: Asia/Bangkok
-  - description: "Peak Cron"
-    url: /jobs/peak
-    schedule: every day 18:00
+  - description: "mysleeplezz01 2Cron"
+    url: /jobs/mysleeplezz01/2
+    schedule: every day 07:00
     timezone: Asia/Bangkok
-  - description: "Proud Cron"
-    url: /jobs/proud
-    schedule: every day 18:30
+  - description: "mysleeplezz01 3Cron"
+    url: /jobs/mysleeplezz01/3
+    schedule: every day 13:00
     timezone: Asia/Bangkok
-  - description: "furt Cron"
-    url: /jobs/furt
-    schedule: every day 19:00
+
+  - description: "mysleeplezz02 Cron"
+    url: /jobs/mysleeplezz02/1
+    schedule: every day 22:00
     timezone: Asia/Bangkok
-  - description: "ploy Cron"
-    url: /jobs/ploy
-    schedule: every day 20:00
+  - description: "mysleeplezz02 Cron"
+    url: /jobs/mysleeplezz02/2
+    schedule: every day 06:30
+    timezone: Asia/Bangkok
+  - description: "mysleeplezz02 Cron"
+    url: /jobs/mysleeplezz02/3
+    schedule: every day 13:00
+    timezone: Asia/Bangkok
+
+  - description: "mysleeplezz03 Cron"
+    url: /jobs/mysleeplezz03/1
+    schedule: every day 22:30
+    timezone: Asia/Bangkok
+  - description: "mysleeplezz03 Cron"
+    url: /jobs/mysleeplezz03/2
+    schedule: every day 23:00
+    timezone: Asia/Bangkok
+  - description: "mysleeplezz03 Cron"
+    url: /jobs/mysleeplezz03/3
+    schedule: every day 07:00
+    timezone: Asia/Bangkok
+  - description: "mysleeplezz03 Cron"
+    url: /jobs/mysleeplezz03/4
+    schedule: every day 13:00
+    timezone: Asia/Bangkok
+
+  - description: "mysleeplezz07 Cron"
+    url: /jobs/mysleeplezz07/1
+    schedule: every day 22:00
+    timezone: Asia/Bangkok
+  - description: "mysleeplezz07 Cron"
+    url: /jobs/mysleeplezz07/2
+    schedule: every day 07:00
+    timezone: Asia/Bangkok
+  - description: "mysleeplezz07 Cron"
+    url: /jobs/mysleeplezz07/3
+    schedule: every day 13:00
+    timezone: Asia/Bangkok
+    
+  - description: "mysleeplezz08 Cron"
+    url: /jobs/mysleeplezz08/1
+    schedule: every day 22:30
+    timezone: Asia/Bangkok
+  - description: "mysleeplezz08 Cron"
+    url: /jobs/mysleeplezz08/2
+    schedule: every day 06:30
+    timezone: Asia/Bangkok
+  - description: "mysleeplezz08 Cron"
+    url: /jobs/mysleeplezz08/3
+    schedule: every day 13:00
     timezone: Asia/Bangkok

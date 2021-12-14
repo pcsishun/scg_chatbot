@@ -51,14 +51,6 @@ function anxietyModelPattern1(){
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless Anxiety:1"
               }
-            },
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "รายละเอียด",
-                "text": "รายละเอียด Anxiety"
-              }
             }
           ]
         }
@@ -119,14 +111,6 @@ function anxietyModelPattern2(){
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless Anxiety:2"
               }
-            },
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "รายละเอียด",
-                "text": "รายละเอียด Anxiety"
-              }
             }
           ]
         }
@@ -186,14 +170,6 @@ function anxietyModelPattern3(){
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless Anxiety:3"
-              }
-            },
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "รายละเอียด",
-                "text": "รายละเอียด Anxiety"
               }
             }
           ]
