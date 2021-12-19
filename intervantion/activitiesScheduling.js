@@ -2,22 +2,9 @@ function activitiesScgedulingFunc(){
     return{
         "type": "bubble",
         "direction": "ltr",
-        "header": {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "text",
-              "text": "Activities Scheduling ",
-              "weight": "bold",
-              "align": "center",
-              "contents": []
-            }
-          ]
-        },
         "hero": {
           "type": "image",
-          "url": "https://vos.line-scdn.net/bot-designer-template-images/bot-designer-icon.png",
+          "url": "https://i.ibb.co/wsq3gsr/02.png",
           "size": "full",
           "aspectRatio": "1.51:1",
           "aspectMode": "fit"
@@ -28,7 +15,7 @@ function activitiesScgedulingFunc(){
           "contents": [
             {
               "type": "text",
-              "text": "1. การยืดเส้น (stretching) ในยามเช้า",
+              "text": "การยืดเส้น (stretching) ในยามเช้า",
               "align": "center",
               "contents": []
             },
@@ -44,42 +31,6 @@ function activitiesScgedulingFunc(){
               "align": "center",
               "contents": []
             },
-            {
-              "type": "text",
-              "text": ".",
-              "align": "center",
-              "contents": []
-            },
-            {
-              "type": "text",
-              "text": "2. การนั่งพักบ้างระหว่างวัน ",
-              "align": "center",
-              "contents": []
-            },
-            {
-              "type": "text",
-              "text": "อาจทำให้ไอเดียไหลลื่นนะคะ ",
-              "align": "center",
-              "contents": []
-            },
-            {
-              "type": "text",
-              "text": "ลุกขึ้นเปลี่ยนบรรยากาศในทุกๆ ",
-              "align": "center",
-              "contents": []
-            },
-            {
-              "type": "text",
-              "text": "ต้นชั่วโมงทำงานจะช่วยได้ค่ะ ",
-              "align": "center",
-              "contents": []
-            },
-            {
-              "type": "text",
-              "text": "แต่ขออย่างเดียวอย่างแอบงีบหลับ",
-              "align": "center",
-              "contents": []
-            }
           ]
         },
         "footer": {
@@ -92,7 +43,9 @@ function activitiesScgedulingFunc(){
                 "type": "message",
                 "label": "ฉันทำเสร็จเเล้ว",
                 "text": "ฉันทำเสร็จเเล้ว!!"
-              }
+              },
+              "color": "#667DD2FF",
+              "style": "primary"
             }
           ]
         }

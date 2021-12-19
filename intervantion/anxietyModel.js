@@ -2,22 +2,9 @@ function anxietyModelPattern1(){
     return{
         "type": "bubble",
         "direction": "ltr",
-        "header": {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "text",
-              "text": "Anxiety Model",
-              "weight": "bold",
-              "align": "center",
-              "contents": []
-            }
-          ]
-        },
         "hero": {
           "type": "image",
-          "url": "https://vos.line-scdn.net/bot-designer-template-images/bot-designer-icon.png",
+          "url": "https://i.ibb.co/TYq6XTT/chatbot-1-chatbot.png",
           "size": "full",
           "aspectRatio": "1.51:1",
           "aspectMode": "fit"
@@ -34,7 +21,7 @@ function anxietyModelPattern1(){
             },
             {
               "type": "text",
-              "text": "น้อง bot เป็นกำลังใจให้นะคะ",
+              "text": "เราเป็นกำลังใจให้นะคะ",
               "align": "center",
               "contents": []
             },
@@ -50,7 +37,9 @@ function anxietyModelPattern1(){
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless Anxiety:1"
-              }
+              },
+              "color": "#667DD2FF",
+              "style": "primary"
             }
           ]
         }
@@ -62,22 +51,9 @@ function anxietyModelPattern2(){
     return{
         "type": "bubble",
         "direction": "ltr",
-        "header": {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "text",
-              "text": "Anxiety Model",
-              "weight": "bold",
-              "align": "center",
-              "contents": []
-            }
-          ]
-        },
         "hero": {
           "type": "image",
-          "url": "https://vos.line-scdn.net/bot-designer-template-images/bot-designer-icon.png",
+          "url": "https://i.ibb.co/TYq6XTT/chatbot-1-chatbot.png",
           "size": "full",
           "aspectRatio": "1.51:1",
           "aspectMode": "fit"
@@ -94,7 +70,7 @@ function anxietyModelPattern2(){
             },
             {
               "type": "text",
-              "text": "น้อง bot เป็นกำลังใจให้นะคะ",
+              "text": "เราเป็นกำลังใจให้นะคะ",
               "align": "center",
               "contents": []
             },
@@ -110,7 +86,9 @@ function anxietyModelPattern2(){
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless Anxiety:2"
-              }
+              },
+              "color": "#667DD2FF",
+              "style": "primary"
             }
           ]
         }
@@ -122,22 +100,9 @@ function anxietyModelPattern3(){
     return{
         "type": "bubble",
         "direction": "ltr",
-        "header": {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "text",
-              "text": "Anxiety Model",
-              "weight": "bold",
-              "align": "center",
-              "contents": []
-            }
-          ]
-        },
         "hero": {
           "type": "image",
-          "url": "https://vos.line-scdn.net/bot-designer-template-images/bot-designer-icon.png",
+          "url": "https://i.ibb.co/TYq6XTT/chatbot-1-chatbot.png",
           "size": "full",
           "aspectRatio": "1.51:1",
           "aspectMode": "fit"
@@ -154,7 +119,7 @@ function anxietyModelPattern3(){
             },
             {
               "type": "text",
-              "text": "น้อง bot เป็นกำลังใจให้นะคะ",
+              "text": "เราเป็นกำลังใจให้นะคะ",
               "align": "center",
               "contents": []
             },
@@ -170,7 +135,9 @@ function anxietyModelPattern3(){
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
                 "text": "สวัสดี mysleepless Anxiety:3"
-              }
+              },
+              "color": "#667DD2FF",
+              "style": "primary"
             }
           ]
         }
