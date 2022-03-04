@@ -30,7 +30,7 @@ function testsinglog(uid){
             "action": {
               "type": "uri",
               "label": "สัปดาห์ที่1",
-              "uri": `https://storage.googleapis.com/scg_storage/demo/${uid}-week1.html`  
+              "uri": `https://storage.googleapis.com/scg_storage/demo/${uid}-week1N.html`  
             }
           },
           {
@@ -38,7 +38,7 @@ function testsinglog(uid){
             "action": {
               "type": "uri",
               "label": "สัปดาห์ที่2",
-              "uri": `https://storage.googleapis.com/scg_storage/demo/${uid}-week2.html`  
+              "uri": `https://storage.googleapis.com/scg_storage/demo/${uid}-week2N.html`  
             }
           }
         ]

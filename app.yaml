@@ -1,3 +1,4 @@
+service: chatbot
 runtime: nodejs16
 
 env_variables:

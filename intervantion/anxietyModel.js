@@ -36,7 +36,7 @@ function anxietyModelPattern1(){
               "action": {
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
-                "text": "สวัสดี mysleepless Anxiety:1"
+                "text": "สวัสดี mysleepless เรามีอะไรอยากปรึกษาหน่อย:."
               },
               "color": "#667DD2FF",
               "style": "primary"
@@ -85,7 +85,7 @@ function anxietyModelPattern2(){
               "action": {
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
-                "text": "สวัสดี mysleepless Anxiety:2"
+                "text": "สวัสดี mysleepless เรามีอะไรอยากปรึกษาหน่อย:.."
               },
               "color": "#667DD2FF",
               "style": "primary"
@@ -134,7 +134,7 @@ function anxietyModelPattern3(){
               "action": {
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
-                "text": "สวัสดี mysleepless Anxiety:3"
+                "text": "สวัสดี mysleepless เรามีอะไรอยากปรึกษาหน่อย:..."
               },
               "color": "#667DD2FF",
               "style": "primary"

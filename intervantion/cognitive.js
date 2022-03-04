@@ -36,7 +36,7 @@ function cognitivePattern1(){
               "action": {
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
-                "text": "สวัสดี mysleepless cognitive:1"
+                "text": "สวัสดี mysleepless เรามีอะไรอยากปรึกษา:."
               },
               "color": "#667DD2FF",
               "style": "primary"
@@ -85,7 +85,7 @@ function cognitivePattern2(){
               "action": {
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
-                "text": "สวัสดี mysleepless cognitive:2"
+                "text": "สวัสดี mysleepless เรามีอะไรอยากปรึกษา:.."
               },
               "color": "#667DD2FF",
               "style": "primary"
@@ -134,7 +134,7 @@ function cognitivePattern3(){
               "action": {
                 "type": "message",
                 "label": "เริ่มต้นเเชท",
-                "text": "สวัสดี mysleepless cognitive:3"
+                "text": "สวัสดี mysleepless เรามีอะไรอยากปรึกษา:..."
               },
               "color": "#667DD2FF",
               "style": "primary"
