@@ -4,8 +4,8 @@ const datastore = new Datastore();
  
 const config = {
  
-    channelAccessToken: 'UG1DCQe0wQvks4ba3LGXIbRzzaDkD2Tljv8+yvosfoMEyQa7mkIap06rMbbDrgNjtsVOlEmNpMdcmm9b7ibREvQzresLTnXOnehsClq0cVFvAUO2qYGK0LIr1c2Ava/BRMHYfFvB4DuZRQVH2rjyfgdB04t89/1O/w1cDnyilFU=',
-    channelSecret: '2d77e494b5df69802310eb1f1d1a933b'
+    channelAccessToken: 'test',
+    channelSecret: 'test'
   };
    
  
